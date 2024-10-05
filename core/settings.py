@@ -55,8 +55,7 @@ ACCOUNT_ALLOW_REGISTRATION = True
 ACCOUNT_AUTHENTICATION_METHOD = "username_email"
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 7
 ACCOUNT_USER_MODEL_USERNAME_FIELD = 'username'
-ACCOUNT_RATE_LIMITS = {}
-ACCOUNT_RATE_LIMITS['login_failed'] = 5
+ACCOUNT_RATE_LIMITS = {'login_failed': 5}
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = False
