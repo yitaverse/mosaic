@@ -6,7 +6,7 @@ from users.models import User, Customer
 from booking.models import Booking
 from users.forms import UserForm, CustomerForm
 from django.forms.utils import ErrorList
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django import forms
 from django.db.models import Sum
 

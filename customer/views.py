@@ -4,7 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from users.models import User, Customer
 from users.forms import UserForm, CustomerForm, CustomerFormE
 from django.forms.utils import ErrorList
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django import forms
 from django.urls import reverse_lazy
 from utils.strings import get_random_alphaNumeric_string

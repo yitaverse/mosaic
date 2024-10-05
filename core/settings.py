@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.conf import global_settings
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -55,13 +55,14 @@ ACCOUNT_ALLOW_REGISTRATION = True
 ACCOUNT_AUTHENTICATION_METHOD = "username_email"
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 7
 ACCOUNT_USER_MODEL_USERNAME_FIELD = 'username'
-ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 5
+ACCOUNT_RATE_LIMITS = {}
+ACCOUNT_RATE_LIMITS['login_failed'] = 5
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_UNIQUE_EMAIL = True
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
-ACCOUNT_EMAIL_VERIFICATION = ""
+ACCOUNT_EMAIL_VERIFICATION = "none"
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
 ACCOUNT_ADAPTER = "users.adapters.AccountAdapter"
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
@@ -106,6 +107,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     "django.contrib.sites.middleware.CurrentSiteMiddleware",
+    "allauth.account.middleware.AccountMiddleware"
 ]
 LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'main', 'locale'),)
@@ -232,3 +234,5 @@ MEDIA_URL = '/media/'
 
 GDAL_LIBRARY_PATH = os.environ.get('GDAL_LIBRARY_PATH')
 GEOS_LIBRARY_PATH = os.environ.get('GEOS_LIBRARY_PATH')
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

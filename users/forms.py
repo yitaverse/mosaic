@@ -2,7 +2,7 @@ from allauth.account.forms import LoginForm
 from allauth.account.forms import SignupForm
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout, Field
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django import forms
 from users.models import User, Customer, Staff
 
