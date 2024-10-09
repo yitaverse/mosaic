@@ -17,12 +17,12 @@ from django.conf import global_settings
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-SITE_ADDRESS = 'https://saadtesting.herokuapp.com'  # the url prefix of the site
+SITE_ADDRESS = 'http://127.0.0.1:8000'  # the url prefix of the site
 BRAND_NAME = 'MOSAIC'
 SITE_ID = 1
 MIN_BOOKING_TIME = 12  # hours
 USE_TZ = False
-TIME_ZONE = 'Australia/Sydney'
+TIME_ZONE = 'Europe/Rome'
 LANGUAGES = (
     ('en', _('English')),
 )
@@ -37,7 +37,7 @@ LANGUAGE_CODE = 'en'
 SECRET_KEY = 'z%$1ryu%2=^hji$t)csqz6%1y*dwh2@@&w-#o$!ssexf^urh69'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = True  # False in Production!
 
 ALLOWED_HOSTS = ['*']
 
@@ -50,13 +50,15 @@ LOGIN_REDIRECT_URL = '/'
 
 # django-allauth
 # ------------------------------------------------------------------------------
-ACCOUNT_ALLOW_REGISTRATION = True
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
+# https://docs.allauth.org/en/latest/account/configuration.html
+# https://docs.allauth.org/en/latest/account/advanced.html
+ACCOUNT_ALLOW_REGISTRATION = True
+ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = True
 ACCOUNT_AUTHENTICATION_METHOD = "username_email"
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 7
 ACCOUNT_USER_MODEL_USERNAME_FIELD = 'username'
-ACCOUNT_RATE_LIMITS = {'login_failed': 5}
-# https://django-allauth.readthedocs.io/en/latest/configuration.html
+ACCOUNT_RATE_LIMITS = {'login_failed': '10/m/ip,5/5m/key'}  # https://django-allauth.readthedocs.io/en/latest/configuration.html
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_UNIQUE_EMAIL = True
@@ -67,8 +69,9 @@ ACCOUNT_ADAPTER = "users.adapters.AccountAdapter"
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
 SOCIALACCOUNT_ADAPTER = "users.adapters.SocialAccountAdapter"
 SOCIALACCOUNT_QUERY_EMAIL = ACCOUNT_EMAIL_REQUIRED
-ACCOUNT_EMAIL_SUBJECT_PREFIX = "mosaicmedia.com"
+ACCOUNT_EMAIL_SUBJECT_PREFIX = "Django App | "  # django.contrib.sites
 SOCIALACCOUNT_STORE_TOKENS = True
+ACCOUNT_EMAIL_UNKNOWN_ACCOUNTS = False
 
 # Application definition
 
@@ -90,12 +93,15 @@ INSTALLED_APPS = [
     'projects',
     # installed Libraries
     'crispy_forms',
+    "crispy_bootstrap4",
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'allauth.socialaccount.providers.google',
-
+    'allauth.socialaccount.providers.google'
 ]
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
+CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -161,8 +167,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-CRISPY_TEMPLATE_PACK = "bootstrap4"
-
 AUTHENTICATION_BACKENDS = (
     # Needed to login by username in Django admin, regardless of `allauth`
     "django.contrib.auth.backends.ModelBackend",
@@ -196,19 +200,13 @@ SOCIALACCOUNT_PROVIDERS = {
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
-
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = ''
-EMAIL_HOST_PASSWORD = ''
-DEFAULT_FROM_EMAIL = ''
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.0/howto/static-files/
-
-STATIC_URL = '/static/'
+EMAIL_HOST_USER = ''  # noreply@gmail.com
+EMAIL_HOST_PASSWORD = ''  # your gmail app password
+DEFAULT_FROM_EMAIL = ''  # Django App <noreply@gmail.com>
 
 CORS_ORIGIN_ALLOW_ALL = False
 
@@ -221,15 +219,19 @@ CORS_ALLOW_HEADERS = (
     'X-CSRFToken'
 )
 CORS_ALLOW_CREDENTIALS = True
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/3.0/howto/static-files/
+STATIC_URL = '/static/'
 STATIC_ROOT = (
     os.path.join(BASE_DIR, 'static_root')
 )
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media_root')
 PROJECT_ROOT = os.path.join(MEDIA_ROOT, 'projects')
-MEDIA_URL = '/media/'
 
 GDAL_LIBRARY_PATH = os.environ.get('GDAL_LIBRARY_PATH')
 GEOS_LIBRARY_PATH = os.environ.get('GEOS_LIBRARY_PATH')

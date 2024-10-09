@@ -31,7 +31,7 @@ class MyCustomSignupForm(SignupForm):
         self.helper = FormHelper()
         self.fields['password1'].label = False
         self.fields['password2'].label = False
-        self.fields['username'].label = False
+        self.fields['username'].label = False  # Avevo didattivato ma poi riattivato!
         self.fields['email'].label = False
         self.fields['password1'].help_text = _('Password Instructions')
         self.helper.add_input(Submit('submit', _('Sign Up'), css_class="form-control btn btn-login"))

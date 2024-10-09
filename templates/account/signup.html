@@ -6,32 +6,29 @@
 {% block title %}{% trans 'Sign Up' %}{% endblock %}
 {% block content %}
         <div class="testimonial container" >
-    <div class="investo-forms" id="login">
-        <div class="conatiner">
-            <div class="row justify-content-center">
-                <div class="col-xl-12">
-                    <div class="section-title">
-                        <h2>{% trans 'Register Account' %}</h2>
-                        <p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>
-                            .{% endblocktrans %}</p>
+            <div class="investo-forms" id="login">
+                <div class="conatiner">
+                    <div class="row justify-content-center">
+                        <div class="col-xl-12">
+                            <div class="section-title">
+                                <h2>{% trans 'Register Account' %}</h2>
+                                <p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-xl-12 form-area">
+                            <form id="signup_form" class=" signup" method="POST" action="{% url 'account_signup' %}">
+                                {% csrf_token %}
+                                {% crispy form %}
+                                {% if redirect_field_value %}
+                                    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+                                {% endif %}
+                                <!-- <button class="btn btn-primary" type="submit">{% trans "Sign Up" %} &raquo;</button> -->
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="row justify-content-center">
-                <div class="col-xl-12 form-area">
-                    <form method="POST" id="signup_form" class=" signup" action="{% url 'account_signup' %}">
-                        {% csrf_token %}
-                        {% if redirect_field_value %}
-                            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
-                        {% endif %}
-                        {% crispy form %}
-                    </form>
-
-                </div>
-
-            </div>
-
-        </div>
-    </div>
         </div>
 {% endblock %}
