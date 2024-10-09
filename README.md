@@ -3,6 +3,8 @@
 ```
 git clone https://github.com/yitaverse/mosaic.git
 cd ./mosaic
+mkdir media
+mkdir static_root
 python -m venv venv
 source venv/bin/activate
 pip install --upgrade pip
