@@ -9,12 +9,16 @@ pip install --upgrade pip
 pip install -r requirements.txt
 python manage.py makemigrations
 python manage.py migrate
+python manage.py createsuperuser
 python manage.py runserver
 ```
 
-Now visit:
-http://localhost:8000/
+With the second to last command you create a superuser to be able to access (after the last command, `python manage.py runserver`) `http://localhost:8000/admin/` to administer the site.
+
+Visit `http://localhost:8000/` to log in with the credentials.
 
 Press `CTRL+C`, in the terminal, to close Django server.
+
+Run `pip freeze > requirements.txt` to export `requirements.txt`, if modified.
 
 Run `deactivate`, in the terminal, to close the python virtual environment.
